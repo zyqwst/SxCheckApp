@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login-page/login-page';
 
 import { HttpService } from '../providers/http-service';
 import { StorageService} from '../providers/storage-service';
@@ -21,6 +22,7 @@ import { Dialogs } from '@ionic-native/dialogs';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    ListPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
