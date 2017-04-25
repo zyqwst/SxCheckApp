@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Hello Ionic</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3>Welcome to your first Ionic app!</h3>
+
+  <p>
+    This starter project is our way of helping you get a functional app running in record time.
+  </p>
+  <p>
+    Follow along on the tutorial section of the Ionic docs!
+  </p>
+
+  <p>
+    <button ion-button color="danger" (click)="alertNative()">打开本地Alert</button>
+  </p>
+  <p>
+    <button ion-button color="primary" (click)="callMyPlugin()">自定义插件传入2个参数</button>
+  </p>
+  <p>
+    <button ion-button color="primary" (click)="callJsonPlugin()">自定义插件传入json</button>
+  </p>
+</ion-content>
