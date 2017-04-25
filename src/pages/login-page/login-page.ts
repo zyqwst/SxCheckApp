@@ -6,6 +6,7 @@ import { StorageService} from '../../providers/storage-service';
 import { Constants } from '../../providers/constants';
 import { HttpService } from '../../providers/http-service';
 
+import {Md5} from "ts-md5/dist/md5";
 
 @Component({
   selector: 'page-login-page',
@@ -22,7 +23,7 @@ export class LoginPage {
   }
    initForm() {
         this.loginForm = this.formBuilder.group({
-            code:[''],
+            code:['',Validators.required], 
             pwd: ['', Validators.required]
         });
     }
@@ -30,7 +31,9 @@ export class LoginPage {
     let loader = this.httpService.loading();
     loader.present();
 
-    this.httpService.httpPostNoAuth("common/login",JSON.stringify(this.loginForm.value))
+    this.loginForm.controls['pwd'].setValue(Md5.hashStr(this.loginForm.controls['pwd'].value).toString());
+
+    this.httpService.httpPostNoAuth("common/login",this.loginForm.value)
     .then(restEntity =>{
       loader.dismiss();
       if(restEntity.status == 1){
