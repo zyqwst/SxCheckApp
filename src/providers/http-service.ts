@@ -9,13 +9,11 @@ import { RestEntity } from '../domain/RestEntity';
 
 @Injectable()
 export class HttpService {
-    hostUrl:string = "http://122.225.97.133:9971";
+    hostUrl:string = "http://192.168.1.100:8080/zyhis/rest";
     constructor(
         private http: Http,
         public loadingCtrl: LoadingController 
-        ) {
-        //this.local = new Storage(LocalStorage);
-    }
+        ) {}
     /**带身份验证的get请求 */
     public httpGetWithAuth(url: string):Promise<RestEntity> {
         url = `${this.hostUrl}/${url}`;
@@ -43,7 +41,7 @@ export class HttpService {
     }
      /**不带身份验证的post请求 */
     public httpPostNoAuth(url: string, body: any) :Promise<RestEntity>{
-          url = `${this.hostUrl}/${url}`;
+        url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
@@ -53,7 +51,18 @@ export class HttpService {
                 this.handleError(err);
             });
     }
-
+    public httpPostWithAuth(url: string, body: any) :Promise<RestEntity>{
+        url = `${this.hostUrl}/${url}`;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization',   'username-password');
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(url, body,options).toPromise()
+            .then(res => res.json())
+            .catch(err => {
+                this.handleError(err);
+            });
+    }
 
     private handleError(error: Response) {
         console.log("请求错误"+error);

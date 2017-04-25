@@ -8,6 +8,7 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
 import { HttpService } from '../providers/http-service';
+import { StorageService} from '../providers/storage-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,7 @@ import { Dialogs } from '@ionic-native/dialogs';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    ListPage,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +39,7 @@ import { Dialogs } from '@ionic-native/dialogs';
     Dialogs,
     SQLite,
     HttpService,
+    StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
