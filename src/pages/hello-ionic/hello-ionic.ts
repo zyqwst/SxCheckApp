@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { Dialogs } from '@ionic-native/dialogs';
-import { AlertController } from 'ionic-angular';
+import { AlertController,ModalController } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+
+import { StorageService} from '../../providers/storage-service';
+import { Constants } from '../../providers/constants';
+import { LoginPage } from '../../pages/login-page/login-page';
 declare let cordova: any;
 @Component({
   selector: 'page-hello-ionic',
@@ -11,9 +15,13 @@ export class HelloIonicPage {
   showAlert:string = "";
   constructor(private dialogs: Dialogs,
               public alertCtrl: AlertController,
-              private sqlite: SQLite) {
+              public sqlite: SQLite,
+              public storageService:StorageService,
+              public modalCtrl: ModalController,
+              public constants :Constants) {}
+ 
+              
 
-  }
  database :SQLiteObject;
   ngOnInit(){
     this.initDB();

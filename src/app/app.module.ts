@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
@@ -10,6 +11,7 @@ import { LoginPage } from '../pages/login-page/login-page';
 
 import { HttpService } from '../providers/http-service';
 import { StorageService} from '../providers/storage-service';
+import { Constants } from '../providers/constants';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +29,8 @@ import { Dialogs } from '@ionic-native/dialogs';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule,
+    JsonpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,6 +46,7 @@ import { Dialogs } from '@ionic-native/dialogs';
     Dialogs,
     SQLite,
     HttpService,
+    Constants,
     StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

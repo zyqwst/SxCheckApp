@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import { LoadingController,Loading } from 'ionic-angular';
+import { LoadingController,Loading,AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/toPromise';
 
 import { RestEntity } from '../domain/RestEntity';
@@ -12,7 +12,8 @@ export class HttpService {
     hostUrl:string = "http://192.168.1.100:8080/zyhis/rest";
     constructor(
         private http: Http,
-        public loadingCtrl: LoadingController 
+        public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController
         ) {}
     /**带身份验证的get请求 */
     public httpGetWithAuth(url: string):Promise<RestEntity> {
@@ -29,7 +30,7 @@ export class HttpService {
     } 
     /**不需身份验证的get请求 */
     public httpGetNoAuth(url: string) {
-
+        url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
@@ -43,7 +44,7 @@ export class HttpService {
     public httpPostNoAuth(url: string, body: any) :Promise<RestEntity>{
         url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
         return this.http.post(url, body,options).toPromise()
             .then(res => res.json())
@@ -77,5 +78,14 @@ export class HttpService {
 				showBackdrop:false //是否显示遮罩层
 			});
         return loader;
+    }
+
+    public alert(title:string,msg:string) {
+      let alert = this.alertCtrl.create({
+        title: title,
+        subTitle: msg,
+        buttons: ['确定']
+      });
+      alert.present();
     }
 }
