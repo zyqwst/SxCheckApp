@@ -24,8 +24,10 @@ export class LoginPage {
                 this.initForm();
   }
    initForm() {
+        let user = this.storageService.read<User>(this.constants.CURR_USER);
+        console.log("代码："+user);
         this.loginForm = this.formBuilder.group({
-            code:['',Validators.required], 
+            code:[user==null?'':user.code,Validators.required], 
             pwd: ['', Validators.required]
         });
     }

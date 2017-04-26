@@ -4,7 +4,6 @@ import { Platform, MenuController, Nav,ModalController,ToastController } from 'i
 import { Events } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from '../pages/list/list';
 import { LoginPage} from '../pages/login-page/login-page';
 import { StorageService} from '../providers/storage-service';
 import { Constants } from '../providers/constants';
@@ -75,12 +74,10 @@ export class MyApp {
   }
 
   authentication(){
-   if(!this.storageService.read(this.constants.HAS_LOGIN) || this.storageService.read(this.constants.HAS_LOGIN)==false){
+  //  if(!this.storageService.read(this.constants.HAS_LOGIN) || this.storageService.read(this.constants.HAS_LOGIN)==false){
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
-   }
-   this.curr_user = this.storageService.read<User>(this.constants.CURR_USER);
-   console.log(this.curr_user);
+  //  }
  }
 
   logout(){

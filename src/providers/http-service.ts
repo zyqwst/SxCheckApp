@@ -3,6 +3,9 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 import { LoadingController,Loading,AlertController } from 'ionic-angular';
+import { StorageService} from './storage-service';
+import { Constants } from './constants';
+import { User } from '../domain/User';
 import 'rxjs/add/operator/toPromise';
 
 import { RestEntity } from '../domain/RestEntity';
@@ -13,13 +16,15 @@ export class HttpService {
     constructor(
         private http: Http,
         public loadingCtrl: LoadingController,
-        public alertCtrl: AlertController
+        public alertCtrl: AlertController,
+        public storageService:StorageService,
+        public constants :Constants,
         ) {}
     /**带身份验证的get请求 */
     public httpGetWithAuth(url: string):Promise<RestEntity> {
         url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
-        headers.append('Authorization',   'username-password');
+        headers.append('Authorization',   this.storageService.read<User>(this.constants.CURR_USER).id.toString());
         let options = new RequestOptions({ headers: headers });
         
         return this.http.get(url,options).toPromise()
@@ -32,7 +37,7 @@ export class HttpService {
     public httpGetNoAuth(url: string) {
         url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
         return this.http.get(url, options).toPromise()
             .then(res => res.json())
@@ -55,8 +60,8 @@ export class HttpService {
     public httpPostWithAuth(url: string, body: any) :Promise<RestEntity>{
         url = `${this.hostUrl}/${url}`;
         var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization',   'username-password');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization',   this.storageService.read<User>(this.constants.CURR_USER).id.toString());
         let options = new RequestOptions({ headers: headers });
         return this.http.post(url, body,options).toPromise()
             .then(res => res.json())

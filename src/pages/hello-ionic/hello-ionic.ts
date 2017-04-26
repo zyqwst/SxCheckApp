@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+
 import { StorageService} from '../../providers/storage-service';
 import { Constants } from '../../providers/constants';
 import { ItemDetailsPage } from '../item-details/item-details';
@@ -22,7 +23,7 @@ export class HelloIonicPage {
   }
   //相机扫描
   scanByCamera(){
-
+   
   }
   
   //调用插件扫描
