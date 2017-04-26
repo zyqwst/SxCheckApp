@@ -5,7 +5,7 @@ import {Validators, FormBuilder,FormGroup } from '@angular/forms';
 import { StorageService} from '../../providers/storage-service';
 import { Constants } from '../../providers/constants';
 import { HttpService } from '../../providers/http-service';
-
+import { User } from '../../domain/User';
 import {Md5} from "ts-md5/dist/md5";
 
 @Component({
@@ -30,13 +30,16 @@ export class LoginPage {
   login(){
     let loader = this.httpService.loading();
     loader.present();
-
+    let pwd = this.loginForm.controls['pwd'].value;
     this.loginForm.controls['pwd'].setValue(Md5.hashStr(this.loginForm.controls['pwd'].value).toString());
 
     this.httpService.httpPostNoAuth("common/login",this.loginForm.value)
     .then(restEntity =>{
       loader.dismiss();
+      this.loginForm.controls['pwd'].setValue(pwd);
       if(restEntity.status == 1){
+        let user:User = restEntity.object;
+        this.storageService.write(this.constants.CURR_USER,user);
         this.storageService.write(this.constants.HAS_LOGIN,true);
         this.viewCtrl.dismiss();
       }else{
@@ -45,7 +48,10 @@ export class LoginPage {
       
     })
     .catch(
-      error => loader.dismiss()
+      error => {
+        loader.dismiss();
+        this.loginForm.controls['pwd'].setValue(pwd);
+      }
     );
 
     

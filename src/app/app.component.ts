@@ -7,6 +7,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage} from '../pages/login-page/login-page';
 import { StorageService} from '../providers/storage-service';
 import { Constants } from '../providers/constants';
+import { User } from '../domain/User';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +24,7 @@ export class MyApp {
   // make HelloIonicPage the root (or first) page
   rootPage = HelloIonicPage;
   pages: Array<{title: string, component: any}>;
-
+  curr_user:User;
   constructor(
     public platform: Platform,
     public menu: MenuController,
@@ -36,8 +38,7 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: '二维码扫描', component: HelloIonicPage },
     ];
   }
 
@@ -63,10 +64,13 @@ export class MyApp {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
    }
+   this.curr_user = this.storageService.read<User>(this.constants.CURR_USER);
+   console.log(this.curr_user);
  }
 
   logout(){
       this.storageService.remove(this.constants.HAS_LOGIN);
+      this.storageService.remove(this.constants.CURR_USER);
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
   }
