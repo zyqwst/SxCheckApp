@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav,ModalController,ToastController } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
@@ -34,14 +35,18 @@ export class MyApp {
     public storageService:StorageService,
     public constants :Constants,
     public modalCtrl: ModalController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public events :Events
   ) {
     this.authentication();
     this.initializeApp();
-    // set our app's pages
     this.pages = [
       { title: '二维码扫描', component: HelloIonicPage },
     ];
+    //set curr_user after login
+    this.events.subscribe(this.constants.CURR_USER,user => {
+      this.curr_user = user
+    });
   }
   
   initializeApp() {
@@ -66,9 +71,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    // close the menu when clicking a link from the menu
     this.menu.close();
-    // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
   }
 
@@ -87,7 +90,6 @@ export class MyApp {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
   }
-  //双击退出提示框，这里使用Ionic2的ToastController
   showExit() {
     if (this.backButtonPressed) this.platform.exitApp();  //当触发标志为true时，即2秒内双击返回按键则退出APP
     else {
@@ -98,7 +100,6 @@ export class MyApp {
       });
       toast.present();
       this.backButtonPressed = true;
-      //2秒内没有再次点击返回则将触发标志标记为false
       setTimeout(() => {
         this.backButtonPressed = false;
       }, 2000)

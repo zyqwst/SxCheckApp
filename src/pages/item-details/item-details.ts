@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
+
+import { BarCode } from '../../domain/BarCode';
 
 
 @Component({
@@ -8,10 +9,11 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'item-details.html'
 })
 export class ItemDetailsPage {
-  selectedItem: any;
+  selectedItem: BarCode;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public barCode : BarCode) {
+    this.selectedItem = navParams.get('barCode');
   }
 }

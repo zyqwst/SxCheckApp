@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import {Validators, FormBuilder,FormGroup } from '@angular/forms';
+import { Events } from 'ionic-angular';
 
 import { StorageService} from '../../providers/storage-service';
 import { Constants } from '../../providers/constants';
@@ -18,7 +19,8 @@ export class LoginPage {
               public storageService:StorageService,
               public constants :Constants,
               public httpService :HttpService,
-              private formBuilder: FormBuilder,) {
+              private formBuilder: FormBuilder,
+              public events:Events) {
                 this.initForm();
   }
    initForm() {
@@ -39,8 +41,11 @@ export class LoginPage {
       this.loginForm.controls['pwd'].setValue(pwd);
       if(restEntity.status == 1){
         let user:User = restEntity.object;
+
         this.storageService.write(this.constants.CURR_USER,user);
         this.storageService.write(this.constants.HAS_LOGIN,true);
+
+        this.events.publish(this.constants.CURR_USER,user);
         this.viewCtrl.dismiss();
       }else{
         this.httpService.alert("登录失败",restEntity.msg);
@@ -52,9 +57,9 @@ export class LoginPage {
         loader.dismiss();
         this.loginForm.controls['pwd'].setValue(pwd);
       }
-    );
-
-    
+    );   
   }
   
+
+
 }

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Dialogs } from '@ionic-native/dialogs';
-import { AlertController,ModalController } from 'ionic-angular';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { StorageService} from '../../providers/storage-service';
 import { Constants } from '../../providers/constants';
-import { LoginPage } from '../../pages/login-page/login-page';
+import { ItemDetailsPage } from '../item-details/item-details';
 declare let cordova: any;
 @Component({
   selector: 'page-hello-ionic',
@@ -13,17 +11,14 @@ declare let cordova: any;
 })
 export class HelloIonicPage {
   showAlert:string = "";
-  constructor(private dialogs: Dialogs,
-              public alertCtrl: AlertController,
-              public sqlite: SQLite,
+  constructor(
               public storageService:StorageService,
-              public modalCtrl: ModalController,
-              public constants :Constants) {}
- 
-              
-
+              public constants :Constants,
+              public navCtrl: NavController, 
+              public navParams: NavParams) {}
  
   ngOnInit(){
+    
   }
   //相机扫描
   scanByCamera(){
@@ -35,6 +30,12 @@ export class HelloIonicPage {
     cordova.plugins.MyPlugin.plus(2,3,result =>{
       alert(result);
     },error =>alert(error))
+  }
+  //跳转页面，展示扫描到的内容
+  showScanContent(item) {
+    this.navCtrl.push(ItemDetailsPage, {
+      barCode: item
+    });
   }
 
 }
