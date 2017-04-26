@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav,ModalController } from 'ionic-angular';
+import { Platform, MenuController, Nav,ModalController,ToastController } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
@@ -25,6 +25,7 @@ export class MyApp {
   rootPage = HelloIonicPage;
   pages: Array<{title: string, component: any}>;
   curr_user:User;
+  backButtonPressed: boolean = false; 
   constructor(
     public platform: Platform,
     public menu: MenuController,
@@ -33,6 +34,7 @@ export class MyApp {
     public storageService:StorageService,
     public constants :Constants,
     public modalCtrl: ModalController,
+    public toastCtrl: ToastController
   ) {
     this.initializeApp();
 
@@ -49,6 +51,17 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.authentication();
+
+       //注册返回按键事件
+      this.platform.registerBackButtonAction((): any => {
+        let activeVC = this.nav.getActive();
+        let page = activeVC.instance;
+        //当前页面非tab栏
+          if (!this.nav.canGoBack() || page instanceof LoginPage) {
+            return this.showExit();
+          }
+          return this.nav.pop();
+      }, 101);
     });
   }
 
@@ -73,5 +86,22 @@ export class MyApp {
       this.storageService.remove(this.constants.CURR_USER);
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
+  }
+  //双击退出提示框，这里使用Ionic2的ToastController
+  showExit() {
+    if (this.backButtonPressed) this.platform.exitApp();  //当触发标志为true时，即2秒内双击返回按键则退出APP
+    else {
+      let toast = this.toastCtrl.create({
+        message: '再按一次退出应用',
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
+      this.backButtonPressed = true;
+      //2秒内没有再次点击返回则将触发标志标记为false
+      setTimeout(() => {
+        this.backButtonPressed = false;
+      }, 2000)
+    }
   }
 }
