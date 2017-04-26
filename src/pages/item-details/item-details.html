@@ -1,14 +1,63 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle *ngIf="!selectedItem">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Item Details</ion-title>
+    
+    <ion-title>扫描内容</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <h3 text-center *ngIf="selectedItem">
-    {{selectedItem.name}}
-  </h3>
+  <ion-list *ngIf="selectedItem">
+    <ion-item>
+        <p>运单号：</p>
+        <p item-right>{{selectedItem.transid}}</p>
+    </ion-item>
+    <ion-item>
+        <p>商品名称：</p>
+        <p item-right>{{selectedItem.name}}</p>
+    </ion-item>
+    <ion-item>
+        <p>规格：</p>
+        <p item-right>{{selectedItem.format}}</p>
+    </ion-item>
+    <ion-item>
+        <p>单位：</p>
+        <p item-right>{{selectedItem.unit}}</p>
+    </ion-item>
+    <ion-item>
+        <p>厂家：</p>
+        <p item-right>{{selectedItem.factory}}</p>
+    </ion-item>
+    <ion-item>
+        <p>批号：</p>
+        <p item-right>{{selectedItem.batchno}}</p>
+    </ion-item>
+    <ion-item>
+        <p>有效期：</p>
+        <p item-right>{{selectedItem.valid}}</p>
+    </ion-item>
+    <ion-item>
+        <p>生产日期：</p>
+        <p item-right>{{selectedItem.prodate}}</p>
+    </ion-item>
+    <ion-item>
+        <p>整件数：</p>
+        <p item-right>{{selectedItem.zqty}}</p>
+    </ion-item>
+    <ion-item>
+        <p>散件数：</p>
+        <p item-right>{{selectedItem.sqty}}</p>
+    </ion-item>
+    <ion-item>
+        <p>单价：</p>
+        <p item-right>{{selectedItem.price}}</p>
+    </ion-item>
+    <ion-item>
+        <p>数量：</p>
+        <p item-right>{{selectedItem.qty}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label>验收数量：</ion-label>
+        <ion-input type="number" [(ngModel)]="checkQty"></ion-input>
+    </ion-item>
+    <button ion-button block (click)="save()" color="primary">提&nbsp;交</button>
+  </ion-list>
 </ion-content>

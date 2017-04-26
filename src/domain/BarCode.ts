@@ -1,4 +1,5 @@
 export class BarCode{
+        
     constructor(
         public transid  :string,
         public name     :string,
