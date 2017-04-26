@@ -36,21 +36,21 @@ export class MyApp {
     public modalCtrl: ModalController,
     public toastCtrl: ToastController
   ) {
+    this.authentication();
     this.initializeApp();
-
     // set our app's pages
     this.pages = [
       { title: '二维码扫描', component: HelloIonicPage },
     ];
   }
-
+  
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authentication();
+
 
        //注册返回按键事件
       this.platform.registerBackButtonAction((): any => {
