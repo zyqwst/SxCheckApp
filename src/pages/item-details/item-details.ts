@@ -32,6 +32,7 @@ export class ItemDetailsPage {
       loader.dismiss();
       if(restEntity.status==-1){
         this.httpService.alert('提示',restEntity.msg);
+        return;
       }
       this.httpService.alert('恭喜',JSON.stringify(this.selectedItem));
     })

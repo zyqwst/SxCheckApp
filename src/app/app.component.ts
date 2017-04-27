@@ -6,7 +6,7 @@ import { Events } from 'ionic-angular';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { LoginPage} from '../pages/login-page/login-page';
 import { StorageService} from '../providers/storage-service';
-import { Constants } from '../providers/constants';
+import { Constants } from '../domain/constants';
 import { User } from '../domain/User';
 
 
@@ -32,7 +32,6 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public storageService:StorageService,
-    public constants :Constants,
     public modalCtrl: ModalController,
     public toastCtrl: ToastController,
     public events :Events
@@ -43,7 +42,7 @@ export class MyApp {
       { title: '二维码扫描', component: HelloIonicPage },
     ];
     //set curr_user after login
-    this.events.subscribe(this.constants.CURR_USER,user => {
+    this.events.subscribe(Constants.CURR_USER,user => {
       this.curr_user = user
     });
   }
@@ -81,8 +80,8 @@ export class MyApp {
  }
 
   logout(){
-      this.storageService.remove(this.constants.HAS_LOGIN);
-      this.storageService.remove(this.constants.CURR_USER);
+      this.storageService.remove(Constants.HAS_LOGIN);
+      this.storageService.remove(Constants.CURR_USER);
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
   }

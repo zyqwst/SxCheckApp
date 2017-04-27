@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 import { LoadingController,Loading,AlertController } from 'ionic-angular';
 import { StorageService} from './storage-service';
-import { Constants } from './constants';
+import { Constants } from '../domain/constants';
 import { User } from '../domain/User';
 import 'rxjs/add/operator/toPromise';
+import {Md5} from "ts-md5/dist/md5";
 
 import { RestEntity } from '../domain/RestEntity';
 
@@ -17,14 +18,16 @@ export class HttpService {
         private http: Http,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
-        public storageService:StorageService,
-        public constants :Constants,
+        public storageService:StorageService
         ) {}
     /**带身份验证的get请求 */
     public httpGetWithAuth(url: string):Promise<RestEntity> {
         url = `${this.hostUrl}/${url}`;
+        let token = this.getToken();
+        if(token==null) this.alert('异常','Token获取错误');
         var headers = new Headers();
-        headers.append('Authorization',   this.storageService.read<User>(this.constants.CURR_USER).id.toString());
+        headers.append(Constants.HEADER_TOKEN,   token);
+        headers.append(Constants.HEADER_USER,this.getCurrUser().id.toString());
         let options = new RequestOptions({ headers: headers });
         
         return this.http.get(url,options).toPromise()
@@ -59,9 +62,12 @@ export class HttpService {
     }
     public httpPostWithAuth(url: string, body: any) :Promise<RestEntity>{
         url = `${this.hostUrl}/${url}`;
+        let token = this.getToken();
+        if(token==null) this.alert('异常','Token获取错误');
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization',   this.storageService.read<User>(this.constants.CURR_USER).id.toString());
+        headers.append(Constants.HEADER_TOKEN,   token);
+        headers.append(Constants.HEADER_USER,this.getCurrUser().id.toString());
         let options = new RequestOptions({ headers: headers });
         return this.http.post(url, body,options).toPromise()
             .then(res => res.json())
@@ -70,15 +76,13 @@ export class HttpService {
             });
     }
 
-    private handleError(error: Response) {
-        console.log("请求错误"+error);
-        return Observable.throw(error.json().error || 'Server Error');
+    private handleError(error:any) {
+        this.alert('请求错误',error);
+        return Observable.throw(error || 'Server Error');
     }
 
     public loading():Loading{
        let loader = this.loadingCtrl.create({
-				spinner:"dots",
-				content:"loading...",
 				dismissOnPageChange:true, // 是否在切换页面之后关闭loading框 
 				showBackdrop:false //是否显示遮罩层
 			});
@@ -92,5 +96,16 @@ export class HttpService {
         buttons: ['确定']
       });
       alert.present();
+    }
+    /**当前登录用户 */
+    public getCurrUser():User{
+       return this.storageService.read<User>(Constants.CURR_USER);
+    }
+    /**Token每次自动生成 */
+    public getToken():string{
+        let user:User = this.getCurrUser();
+        if(user==null) return null;
+        let token = Md5.hashStr(user.id+user.code+user.name);
+        return token.toString().toUpperCase();
     }
 }

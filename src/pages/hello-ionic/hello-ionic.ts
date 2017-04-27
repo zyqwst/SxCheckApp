@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 
 import { StorageService} from '../../providers/storage-service';
-import { Constants } from '../../providers/constants';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { BarCode } from '../../domain/BarCode';
 declare let cordova: any;
@@ -15,7 +14,6 @@ export class HelloIonicPage {
   showAlert:string = "";
   constructor(
               public storageService:StorageService,
-              public constants :Constants,
               public navCtrl: NavController, 
               public navParams: NavParams) {}
  

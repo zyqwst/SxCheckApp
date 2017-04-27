@@ -11,7 +11,6 @@ import { LoginPage } from '../pages/login-page/login-page';
 
 import { HttpService } from '../providers/http-service';
 import { StorageService} from '../providers/storage-service';
-import { Constants } from '../providers/constants';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -46,7 +45,6 @@ import { Dialogs } from '@ionic-native/dialogs';
     Dialogs,
     SQLite,
     HttpService,
-    Constants,
     StorageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
