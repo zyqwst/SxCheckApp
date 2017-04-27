@@ -82,9 +82,10 @@ export class MyApp {
   logout(){
       this.storageService.remove(Constants.HAS_LOGIN);
       this.storageService.remove(Constants.CURR_USER);
-      this.menu.close();
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
+      this.menu.close();
+      this.nav.setRoot(this.rootPage);
   }
   showExit() {
     if (this.backButtonPressed) this.platform.exitApp();  //当触发标志为true时，即2秒内双击返回按键则退出APP
