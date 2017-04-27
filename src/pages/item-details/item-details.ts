@@ -10,23 +10,35 @@ import { HttpService } from '../../providers/http-service';
 })
 export class ItemDetailsPage {
   selectedItem: BarCode;
-  checkQty:number;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public httpService : HttpService) {
     this.selectedItem = navParams.get('data');
-    this.checkQty = this.selectedItem.qty;
+    this.selectedItem.checkqty = this.selectedItem.qty;
   }
 
   save(){
-    if(this.checkQty<0){
+    if(this.selectedItem.checkqty <0){
       this.httpService.alert('提示','验收数量不能小于0');
       return;
-    }if(this.checkQty>this.selectedItem.qty){
+    }if(this.selectedItem.checkqty >this.selectedItem.qty){
       this.httpService.alert('提示','验收数量不可超过总数量');
       return;
     }
-    this.httpService.alert('恭喜',this.checkQty.toString());
+    let loader = this.httpService.loading();
+    loader.present();
+    this.httpService.httpGetWithAuth('common/check')
+    .then(restEntity =>{
+      loader.dismiss();
+      if(restEntity.status==-1){
+        this.httpService.alert('提示',restEntity.msg);
+      }
+      this.httpService.alert('恭喜',JSON.stringify(this.selectedItem));
+    })
+    .catch(err => {
+      loader.dismiss();
+    })
+    
   }
 
 }

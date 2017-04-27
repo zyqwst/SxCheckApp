@@ -12,6 +12,7 @@ export class BarCode{
         public prodate  :string,
         public zqty     :string,//整件数
         public sqty     :string,//散件数
-        public price    :number
+        public price    :number,
+        public checkqty? :number //验收数量
     ){}
 }

@@ -5,7 +5,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngIf="selectedItem">
+  <ion-list *ngIf="selectedItem" inset class="barlist">
     <ion-item>
         <p>运单号：</p>
         <p item-right>{{selectedItem.transid}}</p>
@@ -56,8 +56,10 @@
     </ion-item>
     <ion-item>
         <ion-label>验收数量：</ion-label>
-        <ion-input type="number" [(ngModel)]="checkQty"></ion-input>
+        <ion-input type="number" [(ngModel)]="selectedItem.checkqty"></ion-input>
     </ion-item>
-    <button ion-button block (click)="save()" color="primary">提&nbsp;交</button>
   </ion-list>
+    <div padding>
+      <button ion-button block (click)="save()" color="primary">提&nbsp;交</button>
+    </div>
 </ion-content>
