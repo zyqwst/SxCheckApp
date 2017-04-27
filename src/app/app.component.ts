@@ -82,6 +82,7 @@ export class MyApp {
   logout(){
       this.storageService.remove(Constants.HAS_LOGIN);
       this.storageService.remove(Constants.CURR_USER);
+      this.menu.close();
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
   }
