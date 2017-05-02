@@ -9,4 +9,6 @@ export  class Constants{
     public static HEADER_USER:string = "APP_USER_ID";
 
     public static HEADER_TOKEN:string = "APP_AUTHENTICATION";
+    /**设置menu是否可滑出 */
+    public static SWIPE_ENABLE:string = "SWIPE_ENABLE";
 }

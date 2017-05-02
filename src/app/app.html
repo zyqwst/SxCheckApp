@@ -1,15 +1,18 @@
 <ion-menu [content]="content">
 
-  <ion-header>
-    <ion-toolbar>
-      <ion-title *ngIf="curr_user">用户：{{curr_user?.name}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-content>
-    <ion-list>
+    <ion-row>
+      <ion-col text-center>
+        <img src="assets/logo.png" alt="" style="width:35%;padding-top:20%;">
+        <h2>{{curr_user?.name}}</h2>
+      </ion-col>
+    </ion-row>
+    <ion-list no-lines>
       <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
+      </button>
+      <button (click)="setTapped()" ion-item>
+        设置
       </button>
       <button (click)="logout()" ion-item>
         退出登录

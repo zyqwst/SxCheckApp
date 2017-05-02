@@ -7,9 +7,8 @@
 
 
 <ion-content>
-  <ion-list>
+  <ion-list padding-right>
     <button ion-item *ngFor="let item of items" (click)="itemTapped(item.id)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
       {{item.title}}
     </button>
   </ion-list>

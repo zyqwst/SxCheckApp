@@ -41,14 +41,16 @@ export class MyApp {
     this.initializeApp();
     this.pages = [
       { title: '二维码扫描', component: HelloIonicPage },
-      { title: '设置', component: SettingPage}
     ];
-    //set curr_user after login
-    this.events.subscribe(Constants.CURR_USER,user => {
-      this.curr_user = user
-    });
+    this.initEvent();
   }
-  
+  initEvent(){
+    //set curr_user after login
+    this.events.subscribe(Constants.CURR_USER,user => this.curr_user = user );
+    //set swipe enabled
+    this.events.subscribe(Constants.SWIPE_ENABLE,val => this.menu.swipeEnable(val));
+  }
+ 
   initializeApp() {
     this.platform.ready().then(() => {
 
@@ -87,7 +89,14 @@ export class MyApp {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
       this.menu.close();
-      this.nav.setRoot(this.rootPage);
+      if(!(this.rootPage instanceof HelloIonicPage)){
+        this.nav.setRoot(this.rootPage);
+      }
+  }
+  setTapped(){
+    this.menu.close();
+    this.menu.swipeEnable(false);
+    this.nav.push(SettingPage);
   }
   showExit() {
     if (this.backButtonPressed) this.platform.exitApp();  //当触发标志为true时，即2秒内双击返回按键则退出APP
