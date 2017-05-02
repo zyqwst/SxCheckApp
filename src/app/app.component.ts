@@ -6,6 +6,7 @@ import { Events } from 'ionic-angular';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { LoginPage} from '../pages/login-page/login-page';
 import { StorageService} from '../providers/storage-service';
+import { SettingPage} from '../pages/setting-page/setting-page';
 import { Constants } from '../domain/constants';
 import { User } from '../domain/User';
 
@@ -40,6 +41,7 @@ export class MyApp {
     this.initializeApp();
     this.pages = [
       { title: '二维码扫描', component: HelloIonicPage },
+      { title: '设置', component: SettingPage}
     ];
     //set curr_user after login
     this.events.subscribe(Constants.CURR_USER,user => {

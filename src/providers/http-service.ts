@@ -13,7 +13,7 @@ import { RestEntity } from '../domain/RestEntity';
 
 @Injectable()
 export class HttpService {
-    hostUrl:string = "http://192.168.1.100:8080/zyhis/rest";
+    hostUrl:string = "http://192.168.1.106:8080/zyhis/rest";
     constructor(
         private http: Http,
         public loadingCtrl: LoadingController,
