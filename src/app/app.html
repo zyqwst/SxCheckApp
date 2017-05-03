@@ -9,13 +9,13 @@
     </ion-row>
     <ion-list no-lines>
       <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <h2>{{p.title}}</h2>
       </button>
       <button (click)="setTapped()" ion-item>
-        设置
+        <h2>设置</h2>
       </button>
       <button (click)="logout()" ion-item>
-        退出登录
+        <h2>退出登录</h2>
       </button>
     </ion-list>
   </ion-content>

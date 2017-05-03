@@ -62,11 +62,15 @@ export class MyApp {
       this.platform.registerBackButtonAction((): any => {
         let activeVC = this.nav.getActive();
         let page = activeVC.instance;
+        if(this.menu.isOpen()){
+          this.menu.close();
+          return;
+        }
         //当前页面非tab栏
-          if (!this.nav.canGoBack() || page instanceof LoginPage) {
-            return this.showExit();
-          }
-          return this.nav.pop();
+        if (!this.nav.canGoBack() || page instanceof LoginPage) {
+          return this.showExit();
+        }
+        return this.nav.pop();
       }, 101);
     });
   }
@@ -89,9 +93,6 @@ export class MyApp {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
       this.menu.close();
-      if(!(this.rootPage instanceof HelloIonicPage)){
-        this.nav.setRoot(this.rootPage);
-      }
   }
   setTapped(){
     this.menu.close();

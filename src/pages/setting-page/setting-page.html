@@ -9,7 +9,8 @@
 <ion-content>
   <ion-list padding-right>
     <button ion-item *ngFor="let item of items" (click)="itemTapped(item.id)">
-      {{item.title}}
+      <h2>{{item.title}}</h2>
+      <p *ngIf="item.description!=null">{{item.description}}</p>
     </button>
   </ion-list>
 </ion-content>

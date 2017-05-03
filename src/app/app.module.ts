@@ -9,7 +9,7 @@ import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login-page/login-page';
 import { SettingPage} from '../pages/setting-page/setting-page';
-
+import { AddressPage } from '../pages/address-page/address-page';
 
 import { HttpService } from '../providers/http-service';
 import { StorageService} from '../providers/storage-service';
@@ -26,7 +26,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     ItemDetailsPage,
     ListPage,
     LoginPage,
-    SettingPage
+    SettingPage,
+    AddressPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,8 @@ import { Dialogs } from '@ionic-native/dialogs';
     ItemDetailsPage,
     ListPage,
     LoginPage,
-    SettingPage
+    SettingPage,
+    AddressPage
   ],
   providers: [
     StatusBar,

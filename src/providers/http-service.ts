@@ -7,6 +7,7 @@ import { StorageService} from './storage-service';
 import { Constants } from '../domain/constants';
 import { User } from '../domain/User';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/timeout';
 import {Md5} from "ts-md5/dist/md5";
 
 import { RestEntity } from '../domain/RestEntity';
@@ -14,12 +15,15 @@ import { RestEntity } from '../domain/RestEntity';
 @Injectable()
 export class HttpService {
     hostUrl:string = "http://192.168.1.106:8080/zyhis/rest";
+    TIME_OUT:number = 30000;
     constructor(
         private http: Http,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public storageService:StorageService
-        ) {}
+        ) {
+            
+        }
     /**带身份验证的get请求 */
     public httpGetWithAuth(url: string):Promise<RestEntity> {
         url = `${this.hostUrl}/${url}`;
@@ -30,7 +34,7 @@ export class HttpService {
         headers.append(Constants.HEADER_USER,this.getCurrUser().id.toString());
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.get(url,options).toPromise()
+        return this.http.get(url,options).timeout(this.TIME_OUT).toPromise()
             .then(res => res.json() as RestEntity)
             .catch(err => {
                 this.handleError(err);
@@ -42,7 +46,7 @@ export class HttpService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(url, options).toPromise()
+        return this.http.get(url, options).timeout(this.TIME_OUT).toPromise()
             .then(res => res.json())
             .catch(err => {
                 this.handleError(err);
@@ -54,7 +58,7 @@ export class HttpService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(url, body,options).toPromise()
+        return this.http.post(url, body,options).timeout(this.TIME_OUT).toPromise()
             .then(res => res.json())
             .catch(err => {
                 this.handleError(err);
@@ -69,7 +73,7 @@ export class HttpService {
         headers.append(Constants.HEADER_TOKEN,   token);
         headers.append(Constants.HEADER_USER,this.getCurrUser().id.toString());
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(url, body,options).toPromise()
+        return this.http.post(url, body,options).timeout(this.TIME_OUT).toPromise()
             .then(res => res.json())
             .catch(err => {
                 this.handleError(err);
