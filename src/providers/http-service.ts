@@ -9,7 +9,7 @@ import { User } from '../domain/User';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/timeout';
 import {Md5} from "ts-md5/dist/md5";
-
+import { Dialogs } from '@ionic-native/dialogs';
 import { RestEntity } from '../domain/RestEntity';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class HttpService {
         private http: Http,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
-        public storageService:StorageService
+        public storageService:StorageService,
+        public dialogs: Dialogs
         ) {
             
         }
@@ -94,12 +95,13 @@ export class HttpService {
     }
 
     public alert(title:string,msg:string) {
-      let alert = this.alertCtrl.create({
-        title: title,
-        subTitle: msg,
-        buttons: ['确定']
-      });
-      alert.present();
+    //   let alert = this.alertCtrl.create({
+    //     title: title,
+    //     subTitle: msg,
+    //     buttons: ['确定']
+    //   });
+    //   alert.present();
+        this.dialogs.alert(msg,title);
     }
     /**当前登录用户 */
     public getCurrUser():User{

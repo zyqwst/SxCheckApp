@@ -19,8 +19,8 @@ export class SettingPage {
   }
   public items:Array<{id:string,title:string,description?:string}>;
 
-
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    console.log("执行didload");
     this.loadItemData();
   }
   

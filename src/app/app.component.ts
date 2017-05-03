@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav,ModalController,ToastController } from 'ionic-angular';
-import { Events } from 'ionic-angular';
+import { Events} from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { LoginPage} from '../pages/login-page/login-page';
@@ -57,9 +57,13 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-
+      this.registerBackButtonAction();
        //注册返回按键事件
-      this.platform.registerBackButtonAction((): any => {
+      
+    });
+  }
+  registerBackButtonAction(){
+    this.platform.registerBackButtonAction((): any => {
         let activeVC = this.nav.getActive();
         let page = activeVC.instance;
         if(this.menu.isOpen()){
@@ -72,7 +76,6 @@ export class MyApp {
         }
         return this.nav.pop();
       }, 101);
-    });
   }
 
   openPage(page) {
