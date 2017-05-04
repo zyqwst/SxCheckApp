@@ -11,7 +11,6 @@ import 'rxjs/add/operator/timeout';
 import {Md5} from "ts-md5/dist/md5";
 import { Dialogs } from '@ionic-native/dialogs';
 import { RestEntity } from '../domain/RestEntity';
-
 @Injectable()
 export class HttpService {
     hostUrl:string = "http://192.168.1.106:8080/zyhis/rest";

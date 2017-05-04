@@ -37,7 +37,7 @@ export class ItemDetailsPage {
         this.httpService.alert('提示',restEntity.msg);
         return;
       }
-      this.httpService.alert('恭喜',JSON.stringify(this.selectedItem));
+      this.httpService.alert('恭喜',"tfg");
     })
     .catch(err => {
       loader.dismiss();
