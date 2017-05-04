@@ -7,8 +7,28 @@
 <ion-content>
   <ion-list *ngIf="selectedItem" inset class="barlist">
     <ion-item>
-        <p>运单号：</p>
-        <p item-right>{{selectedItem.transid}}</p>
+        <p>配送公司编号：</p>
+        <p item-right>{{selectedItem.supplierno}}</p>
+    </ion-item>
+    <ion-item>
+        <p>配送公司名称：</p>
+        <p item-right>{{selectedItem.suppliername}}</p>
+    </ion-item>
+    <ion-item>
+        <p>订单明细编号：</p>
+        <p item-right>{{selectedItem.orderdtlId}}</p>
+    </ion-item>
+    <ion-item>
+        <p>配送日期：</p>
+        <p item-right>{{selectedItem.distributetime}}</p>
+    </ion-item>
+    <ion-item>
+        <p>送货单号：</p>
+        <p item-right>{{selectedItem.orderno}}</p>
+    </ion-item>
+    <ion-item>
+        <p>商品编号：</p>
+        <p item-right>{{selectedItem.goodsId}}</p>
     </ion-item>
     <ion-item>
         <p>商品名称：</p>
@@ -23,8 +43,16 @@
         <p item-right>{{selectedItem.unit}}</p>
     </ion-item>
     <ion-item>
-        <p>厂家：</p>
+        <p>生产企业：</p>
         <p item-right>{{selectedItem.factory}}</p>
+    </ion-item>
+    <ion-item>
+        <p>存储条件：</p>
+        <p item-right>{{selectedItem.storecondition}}</p>
+    </ion-item>
+    <ion-item>
+        <p>剂型：</p>
+        <p item-right>{{selectedItem.formluations}}</p>
     </ion-item>
     <ion-item>
         <p>批号：</p>
@@ -36,27 +64,39 @@
     </ion-item>
     <ion-item>
         <p>生产日期：</p>
-        <p item-right>{{selectedItem.prodate}}</p>
+        <p item-right>{{selectedItem.prodDate}}</p>
     </ion-item>
     <ion-item>
-        <p>整件数：</p>
-        <p item-right>{{selectedItem.zqty}}</p>
+        <p>批准文号：</p>
+        <p item-right>{{selectedItem.approvalno}}</p>
     </ion-item>
     <ion-item>
-        <p>散件数：</p>
-        <p item-right>{{selectedItem.sqty}}</p>
+        <p>包装：</p>
+        <p item-right>{{selectedItem.pack}}</p>
     </ion-item>
     <ion-item>
-        <p>单价：</p>
-        <p item-right>{{selectedItem.price}}</p>
-    </ion-item>
-    <ion-item>
-        <p>数量：</p>
+        <p>配送公司数量：</p>
         <p item-right>{{selectedItem.qty}}</p>
     </ion-item>
     <ion-item>
+        <p>平台数量：</p>
+        <p item-right>{{selectedItem.tender_Qty}}</p>
+    </ion-item>
+    <ion-item>
+        <p>平台单位：</p>
+        <p item-right>{{selectedItem.tender_unit}}</p>
+    </ion-item>
+    <ion-item>
+        <p>散件数：</p>
+        <p item-right>{{selectedItem.sQty}}</p>
+    </ion-item>
+    <ion-item>
+        <p>进价：</p>
+        <p item-right>{{selectedItem.price}}</p>
+    </ion-item>
+    <ion-item>
         <ion-label>验收数量：</ion-label>
-        <ion-input type="number" [(ngModel)]="selectedItem.checkqty"></ion-input>
+        <ion-input type="number" [(ngModel)]="selectedItem.checkQty"></ion-input>
     </ion-item>
   </ion-list>
     <div padding>

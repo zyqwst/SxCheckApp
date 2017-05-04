@@ -34,8 +34,9 @@ export class HelloIonicPage {
   }
   
   scan(){
-    let barCode = new BarCode( '1001', '通心络胶囊', '0.26g*30s', '石家庄以岭药业股份有限公司',  '盒',  '20170420', 130, 
-    '2018-08-08', '2017-04-04',  '2', '0',  16.8);
+    let barCode = new BarCode();
+    barCode.approvalno="33444";
+    barCode.qty=45.6;
     this.navCtrl.push(ItemDetailsPage,{data:barCode});
   }
   

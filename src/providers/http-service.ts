@@ -95,22 +95,18 @@ export class HttpService {
     }
 
     public alert(title:string,msg:string) {
-    //   let alert = this.alertCtrl.create({
-    //     title: title,
-    //     subTitle: msg,
-    //     buttons: ['确定']
-    //   });
-    //   alert.present();
         this.dialogs.alert(msg,title);
     }
     /**当前登录用户 */
     public getCurrUser():User{
        return this.storageService.read<User>(Constants.CURR_USER);
     }
-    /**Token每次自动生成 */
+   
     public getToken():string{
-        let user:User = this.getCurrUser();
-        if(user==null) return null;
+        return this.storageService.read<string>(Constants.HEADER_TOKEN);
+    }
+
+    public generateToken(user:User):string{
         let token = Md5.hashStr(user.id+user.code+user.name);
         return token.toString().toUpperCase();
     }

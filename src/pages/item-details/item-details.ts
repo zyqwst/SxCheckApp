@@ -14,20 +14,23 @@ export class ItemDetailsPage {
               public navParams: NavParams,
               public httpService : HttpService) {
     this.selectedItem = navParams.get('data');
-    this.selectedItem.checkqty = this.selectedItem.qty;
+    if(this.selectedItem!=null){
+      this.selectedItem.checkQty = this.selectedItem.qty;
+    }
   }
 
   save(){
-    if(this.selectedItem.checkqty <0){
+    
+    if(this.selectedItem.checkQty <0){
       this.httpService.alert('提示','验收数量不能小于0');
       return;
-    }if(this.selectedItem.checkqty >this.selectedItem.qty){
+    }if(this.selectedItem.checkQty >this.selectedItem.qty){
       this.httpService.alert('提示','验收数量不可超过总数量');
       return;
     }
     let loader = this.httpService.loading();
     loader.present();
-    this.httpService.httpGetWithAuth('common/check')
+    this.httpService.httpPostWithAuth('business/check',this.selectedItem)
     .then(restEntity =>{
       loader.dismiss();
       if(restEntity.status==-1){

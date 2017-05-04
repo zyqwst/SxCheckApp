@@ -45,7 +45,7 @@ export class LoginPage {
 
         this.storageService.write(Constants.CURR_USER,user);
         this.storageService.write(Constants.HAS_LOGIN,true);
-
+        this.storageService.write(Constants.HEADER_TOKEN,this.httpService.generateToken(user));
         this.events.publish(Constants.CURR_USER,user);
         this.viewCtrl.dismiss();
       }else{
