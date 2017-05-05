@@ -34,10 +34,11 @@ export class ItemDetailsPage {
     .then(restEntity =>{
       loader.dismiss();
       if(restEntity.status==-1){
-        this.httpService.alert('提示',restEntity.msg);
+        this.httpService.alert('保存失败',restEntity.msg);
         return;
       }
       this.httpService.alert('恭喜',JSON.stringify(this.selectedItem));
+      this.navCtrl.pop();
     })
     .catch(err => {
       loader.dismiss();
