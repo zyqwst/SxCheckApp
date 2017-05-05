@@ -11,6 +11,7 @@ import 'rxjs/add/operator/timeout';
 import {Md5} from "ts-md5/dist/md5";
 import { Dialogs } from '@ionic-native/dialogs';
 import { RestEntity } from '../domain/RestEntity';
+
 @Injectable()
 export class HttpService {
     hostUrl:string = "http://192.168.1.106:8080/zyhis/rest";
@@ -28,7 +29,10 @@ export class HttpService {
     public httpGetWithAuth(url: string):Promise<RestEntity> {
         url = `${this.hostUrl}/${url}`;
         let token = this.getToken();
-        if(token==null) this.alert('异常','Token获取错误');
+        if(token==null) {
+            this.alert('异常','Token获取错误');
+            return;
+        }
         var headers = new Headers();
         headers.append(Constants.HEADER_TOKEN,   token);
         headers.append(Constants.HEADER_USER,this.getCurrUser().id.toString());
@@ -67,7 +71,10 @@ export class HttpService {
     public httpPostWithAuth(url: string, body: any) :Promise<RestEntity>{
         url = `${this.hostUrl}/${url}`;
         let token = this.getToken();
-        if(token==null) this.alert('异常','Token获取错误');
+        if(token==null) {
+            this.alert('异常','Token获取错误');
+            return;
+        }
         var headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append(Constants.HEADER_TOKEN,   token);
