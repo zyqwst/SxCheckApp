@@ -37,7 +37,7 @@ export class SettingPage {
         this.navCtrl.push(AddressPage);
         break;
       case 'GY':
-        this.httpService.alert('关于','湖州双翼信息技术有限公司版权所有');
+        this.httpService.alert('湖州双翼信息技术有限公司版权所有','关于');
         break;
       default:
         break;

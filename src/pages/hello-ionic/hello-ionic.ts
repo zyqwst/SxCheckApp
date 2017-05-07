@@ -6,6 +6,8 @@ import { StorageService} from '../../providers/storage-service';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { BarCode } from '../../domain/BarCode';
 import { Constants } from '../../domain/constants';
+import { HttpService } from "../../providers/http-service";
+import { Address } from "../../domain/Address";
 declare let cordova: any;
 @Component({
   selector: 'page-hello-ionic',
@@ -17,7 +19,9 @@ export class HelloIonicPage {
               public storageService:StorageService,
               public navCtrl: NavController, 
               public navParams: NavParams,
-              public events :Events) {}
+              public events :Events,
+              public httpService:HttpService,
+              ) {}
  ionViewLoaded(){
    console.log('ionViewLoaded');
  }          
@@ -34,9 +38,10 @@ export class HelloIonicPage {
   }
   
   scan(){
-    let barCode = new BarCode();
-    barCode.approvalno="33444";
-    barCode.qty=45.6;
+    let barcode ='{"uuid":"fd45s6f4ds4gds4fgd6s","orderdtlId":"ZBPT1000198","distributetime":"2017-05-06","orderno":"199999999","goodsId":"5","formulations":"颗粒冲剂","unit":"盒","qty":100.0,"tender_Qty":10.0,"tender_unit":"盒","pack":10,"batchno":"20170506","valid":"2019-08-08","prodDate":"2017-04-04","price":15.0,"approvalno":"浙准字ZJ589846258","supplierno":"JX658596","suppliername":"绍兴震元医药有限公司"}';
+    if(!this.valBefore()) return;
+    let barCode = JSON.parse(barcode);
+    if(!this.valBarcode(barCode)) return;
     this.navCtrl.push(ItemDetailsPage,{data:barCode});
   }
   
@@ -46,11 +51,20 @@ export class HelloIonicPage {
       alert(result);
     },error =>alert(error))
   }
-  //跳转页面，展示扫描到的内容
-  showScanContent(item) {
-    this.navCtrl.push(ItemDetailsPage, {
-      barCode: item
-    });
+  //判断扫描的二维码信息是否准确完整
+  valBarcode(barcode:BarCode):boolean{
+    if(barcode==null){
+      this.httpService.alert('扫描内容为空');
+      return false;
+    }
+    return true;
   }
-
+  valBefore():boolean{
+    let add:Address  =this.storageService.read<Address>(Constants.CURR_ADDRESS);
+    if(add==null) {
+      this.httpService.alert('请先设置收货地址');
+      return false;
+    }
+    return true;
+  }
 }

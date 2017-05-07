@@ -49,7 +49,7 @@ export class LoginPage {
         this.events.publish(Constants.CURR_USER,user);
         this.viewCtrl.dismiss();
       }else{
-        this.httpService.alert("登录失败",restEntity.msg);
+        this.httpService.alert(restEntity.msg,"登录失败");
       }
       
     })

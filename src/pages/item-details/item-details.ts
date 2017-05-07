@@ -22,10 +22,10 @@ export class ItemDetailsPage {
   save(){
     
     if(this.selectedItem.checkQty <0){
-      this.httpService.alert('提示','验收数量不能小于0');
+      this.httpService.alert('验收数量不能小于0');
       return;
     }if(this.selectedItem.checkQty >this.selectedItem.qty){
-      this.httpService.alert('提示','验收数量不可超过总数量');
+      this.httpService.alert('验收数量不可超过总数量');
       return;
     }
     let loader = this.httpService.loading();
@@ -34,10 +34,10 @@ export class ItemDetailsPage {
     .then(restEntity =>{
       loader.dismiss();
       if(restEntity.status==-1){
-        this.httpService.alert('保存失败',restEntity.msg);
+        this.httpService.alert(restEntity.msg,'保存失败');
         return;
       }
-      this.httpService.alert('恭喜',JSON.stringify(this.selectedItem));
+      this.httpService.alert(JSON.stringify(this.selectedItem),'恭喜');
       this.navCtrl.pop();
     })
     .catch(err => {

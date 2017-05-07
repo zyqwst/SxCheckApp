@@ -14,7 +14,7 @@ import { RestEntity } from '../domain/RestEntity';
 
 @Injectable()
 export class HttpService {
-    hostUrl:string = "http://192.168.1.106:8080/zyhis/rest";
+    hostUrl:string = "http://192.168.1.103:8080/zyhis/rest";
     TIME_OUT:number = 30000;
     constructor(
         private http: Http,
@@ -100,7 +100,8 @@ export class HttpService {
         return loader;
     }
 
-    public alert(title:string,msg:string) {
+    public alert(msg:string,title?:string) {
+        if(title==null) title="提示";
         this.dialogs.alert(msg,title);
     }
     /**当前登录用户 */

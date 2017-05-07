@@ -37,7 +37,7 @@ export class AddressPage {
     .then(restEntity =>{
       loader.dismiss();
       if(restEntity.status==-1){
-        this.httpService.alert('提示',restEntity.msg);
+        this.httpService.alert(restEntity.msg);
         return;
       }
       this.addresses = restEntity.object;
