@@ -5,7 +5,6 @@ import { Address } from '../../domain/Address';
 import { HttpService } from "../../providers/http-service";
 import { StorageService } from "../../providers/storage-service";
 import { Constants } from "../../domain/constants";
-import { Observable } from "rxjs/Observable";
 /**
  * 设置医院收货地址
  */
