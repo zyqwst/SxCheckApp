@@ -38,9 +38,9 @@ export class HelloIonicPage {
   }
   
   scan(){
-    let barcode ='{"uuid":"fd45s6f4ds4gds4fgd6s","orderdtlId":"ZBPT1000198","distributetime":"2017-05-06","orderno":"199999999","goodsId":"5","formulations":"颗粒冲剂","unit":"盒","qty":100.0,"tender_Qty":10.0,"tender_unit":"盒","pack":10,"batchno":"20170506","valid":"2019-08-08","prodDate":"2017-04-04","price":15.0,"approvalno":"浙准字ZJ589846258","supplierno":"JX658596","suppliername":"绍兴震元医药有限公司"}';
+    let b ='{"uuid": "453645ggdgfdgdfgd","orderdtlId": "170503162013639136815252","distributetime": "2017-05-06","orderno": "199999999","goodsId": "100003","formulations": "颗粒冲剂","unit": "盒","qty": 100,"tender_qty": 10,"tender_unit": "盒","pack": 10,"batchno": "20170506","valid": "2019-08-08","prodDate": "2017-04-04","price": 15,"approvalno": "浙准字ZJ589846258","supplierno": "12312","suppliername": "绍兴震元医药有限公司"}';
     if(!this.valBefore()) return;
-    let barCode = JSON.parse(barcode);
+    let barCode = JSON.parse(b);
     if(!this.valBarcode(barCode)) return;
     this.navCtrl.push(ItemDetailsPage,{data:barCode});
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import { LoadingController,Loading,AlertController } from 'ionic-angular';
+import { LoadingController, Loading, AlertController, ToastController } from 'ionic-angular';
 import { StorageService} from './storage-service';
 import { Constants } from '../domain/constants';
 import { User } from '../domain/User';
@@ -21,7 +21,8 @@ export class HttpService {
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public storageService:StorageService,
-        public dialogs: Dialogs
+        public dialogs: Dialogs,
+        public toastCtrl: ToastController
         ) {
             
         }
@@ -102,7 +103,16 @@ export class HttpService {
 
     public alert(msg:string,title?:string) {
         if(title==null) title="提示";
-        this.dialogs.alert(msg,title);
+        let buttonNames:string = '确定';
+        this.dialogs.alert(msg,title,buttonNames);
+    }
+    public toast(msg:string,time?:number) {
+        if(!time) time = 3000;
+        let toast = this.toastCtrl.create({
+            message: msg,
+            duration: time
+        });
+        toast.present();
     }
     /**当前登录用户 */
     public getCurrUser():User{

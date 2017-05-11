@@ -36,7 +36,7 @@ export class BarCode{
         
           
          
-        public  tender_Qty:number;
+        public  tender_qty:number;
         
           
          
@@ -70,6 +70,8 @@ export class BarCode{
          
         public  approvalno:string;
         public checkQty? :number; //验收数量
+
+        public matchId?:number;
 
         constructor(){}
     

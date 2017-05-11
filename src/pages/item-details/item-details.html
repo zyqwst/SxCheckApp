@@ -90,9 +90,21 @@
         <p>散件数：</p>
         <p item-right>{{selectedItem.sQty}}</p>
     </ion-item>
+    
     <ion-item>
         <p>进价：</p>
         <p item-right>{{selectedItem.price}}</p>
+    </ion-item>
+    <ion-item>
+        <ion-label>医院商品</ion-label>
+        <ion-select  cancelText="取消" placeholder="请选择" okText="确定" [(ngModel)]="selectedItem.matchId">
+            <ion-option *ngFor="let type of matchs" value="{{type.matchId}}">
+                <ion-item>
+                    <p>{{type.name}}</p><div></div>
+                    <p>{{type.format}}/{{type.unit}}</p>
+                </ion-item>
+            </ion-option>
+        </ion-select>
     </ion-item>
     <ion-item>
         <ion-label>验收数量：</ion-label>
