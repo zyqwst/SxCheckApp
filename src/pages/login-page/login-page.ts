@@ -45,7 +45,7 @@ export class LoginPage {
 
         this.storageService.write(Constants.HEADER_TOKEN,token);
         if(token){
-          let json = JSON.parse(window.atob(token.split('.')[1]));
+          let json = JSON.parse(decodeURIComponent(window.atob(token.split('.')[1])));
           let username = json.sub;
           let id = json.ud;
           let user:User = new User(id,username,'');
