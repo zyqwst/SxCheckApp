@@ -41,13 +41,19 @@ export class LoginPage {
       loader.dismiss();
       this.loginForm.controls['pwd'].setValue(pwd);
       if(restEntity.status == 1){
-        let user:User = restEntity.object;
+        let token:string = restEntity.object;
 
-        this.storageService.write(Constants.CURR_USER,user);
-        this.storageService.write(Constants.HAS_LOGIN,true);
-        this.storageService.write(Constants.HEADER_TOKEN,this.httpService.generateToken(user));
-        this.events.publish(Constants.CURR_USER,user);
-        this.viewCtrl.dismiss();
+        this.storageService.write(Constants.HEADER_TOKEN,token);
+        if(token){
+          let json = JSON.parse(window.atob(token.split('.')[1]));
+          let username = json.sub;
+          let id = json.ud;
+          let user:User = new User(id,username,'');
+          this.storageService.write(Constants.HAS_LOGIN,true);
+          this.storageService.write(Constants.CURR_USER,user);
+          this.events.publish(Constants.CURR_USER,user);
+          this.viewCtrl.dismiss();
+        }
       }else{
         this.httpService.alert(restEntity.msg,"登录失败");
       }
